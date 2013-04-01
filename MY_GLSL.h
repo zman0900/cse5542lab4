@@ -36,7 +36,7 @@
 //**************************************************************************************
 //  Read shaders from the disk into the main memory
 //**************************************************************************************
-int Read_Shader(char *name, char **shader_text)
+int Read_Shader(const char *name, char **shader_text)
 {	
     FILE* fp = fopen(name, "r+");
     if(fp==NULL) return 0;
@@ -55,7 +55,7 @@ int Read_Shader(char *name, char **shader_text)
     return count;
 }
 
-bool Read_Shader_Source(char *shader_name, GLchar **vertexShader, GLchar **fragmentShader)
+bool Read_Shader_Source(const char *shader_name, GLchar **vertexShader, GLchar **fragmentShader)
 {
 	char vert_shader_name[1024];
 	sprintf(vert_shader_name, "%s.vert", shader_name);
@@ -78,7 +78,7 @@ bool Read_Shader_Source(char *shader_name, GLchar **vertexShader, GLchar **fragm
 //**************************************************************************************
 //  GLSL setup routine
 //**************************************************************************************
-GLuint Setup_GLSL(char *name)
+GLuint Setup_GLSL(const char *name)
 {
 	//Step 1: Check the status of the GPU
 

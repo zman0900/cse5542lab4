@@ -30,6 +30,7 @@
 #define __WHMIN_MESH_H__
 #include	<fstream>
 #include    <math.h>
+#include <cstring>
 
 float Normalize(float *x, float *r=0)
 {
@@ -89,7 +90,7 @@ public:
 		if(T)	delete []T;
 	}
 
-	void Read_OBJ_File(char *filename)
+	void Read_OBJ_File(const char *filename)
 	{
 		number=0;
 		t_number=0;
@@ -226,10 +227,10 @@ public:
 			float *p2=X[T[i*3+2]].p;
             
 			float e0[3], e1[3];
-			for(int i=0; i<3; i++)
+			for(int j=0; j<3; j++)
 			{
-				e0[i]=p1[i]-p0[i];
-				e1[i]=p2[i]-p0[i];
+				e0[j]=p1[j]-p0[j];
+				e1[j]=p2[j]-p0[j];
 			}		
 			Cross(e1, e0, &TN[i*3]);
 			Normalize(&TN[i*3]);
