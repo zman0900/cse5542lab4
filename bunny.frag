@@ -1,3 +1,4 @@
+#version 130
 varying vec4 fragment_position;
 varying vec3 fragment_normal;
 

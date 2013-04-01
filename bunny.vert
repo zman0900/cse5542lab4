@@ -1,3 +1,4 @@
+#version 130
 attribute vec4 vertex_position;     //In the local space
 attribute vec3 vertex_normal;       //In the local space
 
