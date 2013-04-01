@@ -130,8 +130,8 @@ void display()
 	// Tells OpenGL how to walk through the VBOs, i.e., how the data are packed 
 	// number of coordinates per vertex (4 here), type of the coordinates, 
 	// stride between consecutive vertices, and pointers to the first coordinate
-	glVertexAttribPointer(c0,4,GL_FLOAT, GL_FALSE, sizeof(VERTEX),(char*) NULL+0); 
-	glVertexAttribPointer(c1,4,GL_FLOAT, GL_FALSE, sizeof(VERTEX),(char*) NULL+16);
+	glVertexAttribPointer(c0,4,GL_FLOAT, GL_FALSE, sizeof(VERTEX), reinterpret_cast<void*>(offsetof(VERTEX, p))); 
+	glVertexAttribPointer(c1,3,GL_FLOAT, GL_FALSE, sizeof(VERTEX), reinterpret_cast<void*>(offsetof(VERTEX, n)));
 	glDrawElements(GL_TRIANGLES, env_mesh.t_number*3, GL_UNSIGNED_INT, (char*) NULL+0); 
 
     
