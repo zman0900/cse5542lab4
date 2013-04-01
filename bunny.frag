@@ -1,5 +1,5 @@
 varying vec4 fragment_position;
-varying vec4 fragment_normal;
+varying vec3 fragment_normal;
 
 uniform sampler2D env_texture; 
 
@@ -40,5 +40,5 @@ void main()
     
     
 
-    gl_FragColor = vec4(brightness, brightness, brightness, 1);
+    gl_FragColor = vec4(brightness, brightness, brightness, 1.0);
  } 

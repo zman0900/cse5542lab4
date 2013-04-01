@@ -28,7 +28,7 @@
 //**************************************************************************************
 #ifndef __WHMIN_MESH_H__
 #define __WHMIN_MESH_H__
-#include	<fstream>
+#include	<cstdio>
 #include    <math.h>
 #include <cstring>
 
