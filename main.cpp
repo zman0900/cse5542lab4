@@ -31,6 +31,7 @@ MESH	env_mesh;
 MESH    bunny_mesh;
 
 GLuint  texture_id;
+GLuint  texture_hdr, texture_reg;
 bool hdr;
 
 void Load_Texture(GLuint& tid, const char* filename)
@@ -199,9 +200,9 @@ void mykey(unsigned char key, int x, int y)
     if(key=='z')    zoom*=0.8f;    
     if(key=='h') {
     	if (hdr)
-    		Load_Texture(texture_id, "stpeters_probe.pfm");
+    		texture_id = texture_reg;
     	else
-    		Load_HDR_Texture(texture_id, "stpeters_probe.pfm");
+    		texture_id = texture_hdr;
     	hdr = !hdr;
     }
     
@@ -242,7 +243,9 @@ int main(int argc, char** argv)
     env_mesh.Create_Sphere(200, 100, 100);
 	env_mesh.Init();
 
-    Load_HDR_Texture(texture_id, "stpeters_probe.pfm");
+    Load_HDR_Texture(texture_hdr, "stpeters_probe.pfm");
+    Load_Texture(texture_reg, "stpeters_probe.pfm");
+    texture_id = texture_hdr;
     hdr = true;
 	    
 	glutMainLoop(); 
