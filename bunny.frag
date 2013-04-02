@@ -29,7 +29,16 @@ vec3 Refraction(vec3 V, vec3 N, float index)
 
 float Fresnel(vec3 V, vec3 N, float index)
 {
-    return 0.0;
+	vec3 T = vec3(vec4(Refraction(V, N, 1.5), 0.0) * gl_ModelViewMatrixInverse);
+	vec3 Vw = vec3(vec4(V, 0.0) * gl_ModelViewMatrixInverse);
+	vec3 Nw = vec3(vec4(N, 0.0) * gl_ModelViewMatrixInverse);
+	// cos of incoming angle
+	float ti = dot(Vw,Nw);
+	// cos of refractive angle
+	float tt = dot(T,-Nw);
+
+	return 0.5*(pow(abs((ti-index*tt)/(ti+index*tt)),2.0)
+	                +pow(abs((index*ti-tt)/(index*ti+tt)),2.0));
 }
 
 void main()
@@ -44,10 +53,16 @@ void main()
     
     //Now you need to calculate reflections and refractions (in the world space)!
     V = normalize(V);
-    vec4 cr = Environment(vec3(vec4(Reflection(V, N), 1.0)
-                                                  * gl_ModelViewMatrixInverse));
-    vec4 ct = Environment(vec3(vec4(Refraction(V, N, 1.5), 1.0)
-                                                  * gl_ModelViewMatrixInverse));
 
-    gl_FragColor = vec4(brightness * vec3(ct), 1.0);
+	vec4 cr = Environment(
+	               vec3(vec4(Reflection(V, N), 0.0) * gl_ModelViewMatrixInverse)
+	          );
+	vec4 ct = Environment(
+	          vec3(vec4(Refraction(V, N, 1.5), 0.0) * gl_ModelViewMatrixInverse)
+	          );
+	float f = Fresnel(V, N, 1.5);
+	vec4 c = f*cr + (1.0-f)*ct;
+
+    gl_FragColor = vec4(brightness * vec3(c), 1.0);
+    //gl_FragColor = vec4(f, f, f, 1.0);
  } 
